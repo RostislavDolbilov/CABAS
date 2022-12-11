@@ -1,0 +1,9 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/alarm"
+  },
+  "response": {
+    "status": 200
+  }
+}

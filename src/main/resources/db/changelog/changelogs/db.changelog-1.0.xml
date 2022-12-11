@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog logicalFilePath="db/changelog/changelogs/db.changelog-1.0.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1" author="rostislav">
+
+        <createTable tableName="area">
+            <column type="BIGINT" autoIncrement="true" name="id">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column type="VARCHAR(50)" name="area_code">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+
+        <createTable tableName="city">
+            <column type="BIGINT" autoIncrement="true" name="id">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column type="VARCHAR(50)" name="city_name">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="area_code_id" type="INT">
+                <constraints
+                        nullable="false"
+                        referencedTableName="area"
+                        referencedColumnNames="id"
+                        foreignKeyName="city_area_code_id_area_id"
+                />
+            </column>
+        </createTable>
+
+
+        <createTable tableName="citizen">
+            <column type="BIGINT" autoIncrement="true" name="id">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column type="VARCHAR(50)" name="first_name">
+                <constraints nullable="false"/>
+            </column>
+
+            <column type="VARCHAR(50)" name="last_name">
+                <constraints nullable="false"/>
+            </column>
+
+            <column type="BIGINT" name="city_id">
+                <constraints
+                        nullable="false"
+                        referencedColumnNames="id"
+                        referencedTableName="city"
+                        foreignKeyName="citizen_city_id_city_id"
+                />
+            </column>
+
+            <column type="VARCHAR(20)" name="phone">
+                <constraints nullable="false"/>
+            </column>
+
+            <column type="BIGINT" name="guardian_id">
+                <constraints
+                        foreignKeyName="citizen_guardian_id"
+                        referencedColumnNames="id"
+                        referencedTableName="citizen"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
